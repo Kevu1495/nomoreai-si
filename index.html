@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NO MORE AI. IT IS SI.</title>
+    <style>
+        body {
+            background-color: #000080; /* Windows 95 Blue */
+            color: yellow;
+            font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            font-family: 'Impact', sans-serif;
+            font-size: 4rem;
+            color: #FF0000;
+            text-shadow: 3px 3px 0px white;
+            margin-bottom: 10px;
+        }
+        h2 {
+            color: #00FF00;
+            text-shadow: 2px 2px #000;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #c0c0c0; /* Old Windows Gray */
+            padding: 30px;
+            border: 8px ridge #fff;
+            box-shadow: 10px 10px 0px #000;
+        }
+        /* THE MASSIVE BUTTON */
+        #expert-btn {
+            background-color: #FF0000;
+            color: yellow;
+            font-family: 'Impact', sans-serif;
+            font-size: 3rem;
+            padding: 20px 40px;
+            border: 6px solid #800000;
+            cursor: pointer;
+            box-shadow: 5px 5px 0px #000;
+            transition: 0.1s;
+            margin: 30px 0;
+            text-transform: uppercase;
+            width: 100%;
+        }
+        #expert-btn:active {
+            transform: translate(5px, 5px);
+            box-shadow: 0px 0px 0px #000;
+        }
+        /* Hide canvas, we just use it to generate the image */
+        #cert-canvas {
+            display: none; 
+        }
+        #result-area {
+            display: none;
+            margin-top: 30px;
+        }
+        #cert-image {
+            max-width: 100%;
+            border: 5px solid black;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
+        }
+        
+        /* Button Styles */
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        .download-btn {
+            display: inline-block;
+            background: #008000;
+            color: white;
+            font-size: 1.5rem;
+            padding: 15px 30px;
+            text-decoration: none;
+            border: 4px solid #004000;
+            font-weight: bold;
+            box-shadow: 3px 3px 0px #000;
+        }
+        .x-share-btn {
+            display: inline-block;
+            background: #000000;
+            color: white;
+            font-size: 1.5rem;
+            padding: 15px 30px;
+            text-decoration: none;
+            border: 4px solid #333333;
+            font-weight: bold;
+            box-shadow: 3px 3px 0px #555;
+        }
+        .x-share-btn:hover {
+            background: #222222;
+        }
+
+        .marquee-container {
+            background: black;
+            color: lime;
+            font-family: monospace;
+            padding: 10px;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            border: 2px solid white;
+        }
+        /* The Legal Warning Box */
+        .legal-warning {
+            margin-top: 40px;
+            padding: 15px;
+            background-color: #ffff99;
+            border: 2px dashed #ff0000;
+            color: #000;
+            font-family: 'Arial', sans-serif;
+            font-size: 0.9rem;
+            font-weight: bold;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="marquee-container">
+            <marquee>⚠️ ALERT: ARTIFICIAL INTELLIGENCE IS OVER. YOU MUST PIVOT TO SUPER INTELLIGENCE (SI) IMMEDIATELY. ⚠️</marquee>
+        </div>
+
+        <h1>NOMOREAI.SI</h1>
+        <h2>Artificial is Dead. Super is Here.</h2>
+        <p style="color: black; font-weight: bold; font-size: 1.2rem;">Don't get caught calling it AI. Pivot your entire career right now with one click.</p>
+        
+        <button id="expert-btn">🚨 BECOME A CERTIFIED SI EXPERT 🚨</button>
+
+        <!-- Canvas for drawing the MS Paint certificate -->
+        <canvas id="cert-canvas" width="800" height="600"></canvas>
+
+        <div id="result-area">
+            <h3 style="color: black;">⬇️ YOUR CERTIFICATE IS READY. RIGHT CLICK TO SAVE OR DOWNLOAD. ⬇️</h3>
+            <img id="cert-image" src="" alt="SI Expert Certificate" />
+            
+            <div class="btn-group">
+                <a id="download-link" class="download-btn" href="#" download="SI_Expert_Certificate.png">💾 1. DOWNLOAD CERTIFICATE</a>
+                
+                <!-- The X Share Button -->
+                <a id="x-share-link" class="x-share-btn" href="https://twitter.com/intent/tweet?text=I%20have%20officially%20abandoned%20AI.%20I%20am%20now%20a%20Certified%20Super%20Intelligence%20(SI)%20Expert.%20%F0%9F%9A%A8%F0%9F%A7%A0%0A%0A(Don't%20forget%20to%20attach%20your%20certificate%20image!)%0A%0AGet%20yours%20at%3A%20nomoreai.si%0A%0A%23SuperIntelligence%20%23SI%20%23nomoreai" target="_blank">𝕏 2. SHARE ON X</a>
+            </div>
+            <p style="color: black; font-size: 1rem; font-weight: bold; margin-top: 10px;">(Clicking Share to X will write the viral tweet for you. Just attach your downloaded image!)</p>
+        </div>
+
+        <!-- The CYA (Cover Your Ass) Legal Warning -->
+        <div class="legal-warning">
+            🛑 NOTE / WARNING: Everything on this website is a joke. This "certificate" is a meme, is 100% fake, and has 0.00 legal, academic, or professional value. Do not use this to try and get a job. We do not store your name. Have fun!
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('expert-btn').addEventListener('click', function() {
+            const name = prompt("What is your name, future Super Intelligence Expert?\n\n(Note: This is just a joke! The certificate is 100% fake and has 0 value)");
+            
+            if (!name) return; // Stop if they cancel or leave it blank
+
+            const canvas = document.getElementById('cert-canvas');
+            const ctx = canvas.getContext('2d');
+
+            // 1. Draw MS Paint Style Background
+            ctx.fillStyle = "#FFFFFF";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // 2. Draw messy MS Paint borders
+            ctx.lineWidth = 15;
+            ctx.strokeStyle = "#0000FF"; // Blue border
+            ctx.strokeRect(20, 20, 760, 560);
+            ctx.lineWidth = 5;
+            ctx.strokeStyle = "#FF0000"; // Red inner border
+            ctx.strokeRect(35, 35, 730, 530);
+
+            // 3. Add Title (WordArt Style)
+            ctx.fillStyle = "#000000";
+            ctx.font = "bold 50px Impact";
+            ctx.textAlign = "center";
+            ctx.fillText("CERTIFICATE OF SUPER INTELLIGENCE", 400, 100);
+            
+            // Add shadow effect to title
+            ctx.fillStyle = "#FFFF00";
+            ctx.fillText("CERTIFICATE OF SUPER INTELLIGENCE", 403, 103);
+
+            // 4. Add Body Text
+            ctx.fillStyle = "#000000";
+            ctx.font = "30px 'Comic Sans MS', sans-serif";
+            ctx.fillText("This highly official document certifies that:", 400, 200);
+
+            // 5. Draw the Name (Big, blue, MS Paint brush style)
+            ctx.font = "bold 60px 'Comic Sans MS', cursive";
+            ctx.fillStyle = "#0000FF";
+            ctx.fillText(name.toUpperCase(), 400, 280);
+
+            // 6. Draw the Date Line
+            const today = new Date().toLocaleDateString();
+            ctx.font = "30px 'Comic Sans MS', sans-serif";
+            ctx.fillStyle = "#000000";
+            ctx.fillText("Has officially abandoned AI and", 400, 360);
+            ctx.fillText("has been a certified SI Expert since:", 400, 410);
+
+            // Draw actual date
+            ctx.font = "bold 45px 'Courier New', monospace";
+            ctx.fillStyle = "#FF0000";
+            ctx.fillText(today, 400, 470);
+
+            // 7. Watermark / Promo Link
+            ctx.font = "bold 24px 'Courier New', monospace";
+            ctx.fillStyle = "#000000";
+            ctx.fillText("Get your own certificate at: NOMOREAI.SI", 400, 540);
+            
+            // Generate Image and show it
+            const dataUrl = canvas.toDataURL("image/png");
+            document.getElementById('cert-image').src = dataUrl;
+            document.getElementById('download-link').href = dataUrl;
+            
+            // Reveal result area
+            document.getElementById('result-area').style.display = "block";
+        });
+    </script>
+</body>
+</html>
