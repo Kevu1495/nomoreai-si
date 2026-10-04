@@ -1,228 +1,1194 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NO MORE AI. IT IS SI.</title>
-    <style>
-        body {
-            background-color: #000080; /* Windows 95 Blue */
-            color: yellow;
-            font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
-            text-align: center;
-            margin: 0;
-            padding: 20px;
-        }
-        h1 {
-            font-family: 'Impact', sans-serif;
-            font-size: 4rem;
-            color: #FF0000;
-            text-shadow: 3px 3px 0px white;
-            margin-bottom: 10px;
-        }
-        h2 {
-            color: #00FF00;
-            text-shadow: 2px 2px #000;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: #c0c0c0; /* Old Windows Gray */
-            padding: 30px;
-            border: 8px ridge #fff;
-            box-shadow: 10px 10px 0px #000;
-        }
-        /* THE MASSIVE BUTTON */
-        #expert-btn {
-            background-color: #FF0000;
-            color: yellow;
-            font-family: 'Impact', sans-serif;
-            font-size: 3rem;
-            padding: 20px 40px;
-            border: 6px solid #800000;
-            cursor: pointer;
-            box-shadow: 5px 5px 0px #000;
-            transition: 0.1s;
-            margin: 30px 0;
-            text-transform: uppercase;
-            width: 100%;
-        }
-        #expert-btn:active {
-            transform: translate(5px, 5px);
-            box-shadow: 0px 0px 0px #000;
-        }
-        /* Hide canvas, we just use it to generate the image */
-        #cert-canvas {
-            display: none; 
-        }
-        #result-area {
-            display: none;
-            margin-top: 30px;
-        }
-        #cert-image {
-            max-width: 100%;
-            border: 5px solid black;
-            box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
-        }
-        
-        /* Button Styles */
-        .btn-group {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 20px;
-            flex-wrap: wrap;
-        }
-        .download-btn {
-            display: inline-block;
-            background: #008000;
-            color: white;
-            font-size: 1.5rem;
-            padding: 15px 30px;
-            text-decoration: none;
-            border: 4px solid #004000;
-            font-weight: bold;
-            box-shadow: 3px 3px 0px #000;
-        }
-        .x-share-btn {
-            display: inline-block;
-            background: #000000;
-            color: white;
-            font-size: 1.5rem;
-            padding: 15px 30px;
-            text-decoration: none;
-            border: 4px solid #333333;
-            font-weight: bold;
-            box-shadow: 3px 3px 0px #555;
-        }
-        .x-share-btn:hover {
-            background: #222222;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="NOMOREAI.SI — officially abandon Artificial Intelligence and become a completely unofficial Super Intelligence Expert.">
+  <meta name="theme-color" content="#050505">
+  <title>NOMOREAI.SI — Artificial is Dead. Super is Here.</title>
 
-        .marquee-container {
-            background: black;
-            color: lime;
-            font-family: monospace;
-            padding: 10px;
-            font-size: 1.2rem;
-            margin-bottom: 20px;
-            border: 2px solid white;
-        }
-        /* The Legal Warning Box */
-        .legal-warning {
-            margin-top: 40px;
-            padding: 15px;
-            background-color: #ffff99;
-            border: 2px dashed #ff0000;
-            color: #000;
-            font-family: 'Arial', sans-serif;
-            font-size: 0.9rem;
-            font-weight: bold;
-            text-align: left;
-        }
-    </style>
+  <style>
+    :root {
+      --black: #050505;
+      --paper: #f4f0df;
+      --white: #fff;
+      --acid: #d8ff00;
+      --red: #ff2a1a;
+      --blue: #173cff;
+      --purple: #7c3cff;
+      --ink: #101010;
+      --muted: #6f6b5e;
+      --line: #171717;
+      --shadow: 8px 8px 0 var(--black);
+      --shadow-small: 4px 4px 0 var(--black);
+      --radius: 2px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--black);
+    }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 15% 10%, rgba(216,255,0,.08), transparent 24rem),
+        radial-gradient(circle at 85% 40%, rgba(124,60,255,.10), transparent 28rem),
+        var(--black);
+      color: var(--paper);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.45;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 100;
+      opacity: .07;
+      background-image:
+        linear-gradient(rgba(255,255,255,.2) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.2) 1px, transparent 1px);
+      background-size: 4px 4px;
+      mix-blend-mode: screen;
+    }
+
+    a { color: inherit; }
+
+    button, input {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    :focus-visible {
+      outline: 4px solid var(--acid);
+      outline-offset: 4px;
+    }
+
+    .skip-link {
+      position: fixed;
+      top: 8px;
+      left: 8px;
+      z-index: 200;
+      transform: translateY(-160%);
+      background: var(--acid);
+      color: var(--black);
+      padding: 10px 14px;
+      font-weight: 900;
+    }
+
+    .skip-link:focus { transform: translateY(0); }
+
+    .topbar {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      min-height: 58px;
+      padding: 10px clamp(16px, 4vw, 56px);
+      border-bottom: 2px solid #333;
+      background: var(--black);
+      color: var(--acid);
+      font-family: "Courier New", monospace;
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    .brand {
+      text-decoration: none;
+      font-size: 17px;
+      letter-spacing: -.04em;
+    }
+
+    .topbar-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #ddd;
+    }
+
+    .status-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #38ff59;
+      box-shadow: 0 0 12px #38ff59;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      50% { opacity: .35; transform: scale(.75); }
+    }
+
+    .hero {
+      position: relative;
+      min-height: calc(100vh - 58px);
+      display: grid;
+      place-items: center;
+      padding: 72px 20px 90px;
+      isolation: isolate;
+    }
+
+    .hero::after {
+      content: "SI";
+      position: absolute;
+      right: -3vw;
+      bottom: -8vw;
+      z-index: -1;
+      font-family: Impact, "Arial Black", sans-serif;
+      font-size: clamp(16rem, 40vw, 42rem);
+      line-height: .7;
+      color: rgba(255,255,255,.025);
+      transform: rotate(-7deg);
+      user-select: none;
+    }
+
+    .hero-inner {
+      width: min(1120px, 100%);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 22px;
+      padding: 7px 10px;
+      background: var(--acid);
+      color: var(--black);
+      border: 2px solid var(--acid);
+      font-family: "Courier New", monospace;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      transform: rotate(-1.2deg);
+    }
+
+    .hero h1 {
+      max-width: 1050px;
+      margin: 0;
+      color: var(--white);
+      font-family: "Arial Black", Arial, Helvetica, sans-serif;
+      font-size: clamp(4.2rem, 12vw, 10.5rem);
+      line-height: .76;
+      letter-spacing: -.055em;
+      text-transform: uppercase;
+      text-wrap: balance;
+    }
+
+    .hero h1 .no-more {
+      display: block;
+      color: var(--red);
+    }
+
+    .hero h1 .ai-word {
+      position: relative;
+      display: inline-block;
+      color: var(--red);
+      letter-spacing: .025em;
+      text-decoration: line-through;
+      text-decoration-thickness: .075em;
+      text-decoration-color: var(--white);
+      text-decoration-skip-ink: none;
+      margin-left: .06em;
+    }
+
+    .hero h1 .ai-word::after {
+      content: "";
+      position: absolute;
+      left: -0.04em;
+      right: -0.04em;
+      top: 51%;
+      height: .075em;
+      min-height: 5px;
+      background: var(--white);
+      transform: translateY(-50%) rotate(-1deg);
+      pointer-events: none;
+    }
+
+    .hero h1 .hero-word {
+      display: inline-block;
+      letter-spacing: .045em;
+      margin-left: .08em;
+    }
+
+    .hero h1 .si {
+      display: block;
+      color: var(--acid);
+      transform: translateX(clamp(12px, 4vw, 50px)) rotate(-1.5deg);
+      text-shadow: 8px 8px 0 var(--purple);
+    }
+
+    .hero-copy {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: end;
+      gap: 40px;
+      margin-top: 44px;
+    }
+
+    .hero-copy p {
+      max-width: 620px;
+      margin: 0;
+      color: #d5d2c7;
+      font-size: clamp(1.05rem, 2vw, 1.35rem);
+    }
+
+    .hero-copy strong { color: var(--acid); }
+
+    .hero-note {
+      max-width: 270px;
+      padding: 14px;
+      background: var(--red);
+      color: var(--white);
+      border: 3px solid var(--white);
+      box-shadow: var(--shadow-small);
+      font-family: "Courier New", monospace;
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+      transform: rotate(2deg);
+    }
+
+    .hero-cta {
+      width: 100%;
+      margin-top: 42px;
+      padding: clamp(20px, 4vw, 30px) 24px;
+      border: 5px solid var(--acid);
+      background: var(--acid);
+      color: var(--black);
+      box-shadow: 10px 10px 0 var(--purple);
+      font-family: Impact, "Arial Black", sans-serif;
+      font-size: clamp(2rem, 5vw, 4.6rem);
+      line-height: .9;
+      letter-spacing: -.025em;
+      text-transform: uppercase;
+      transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
+    }
+
+    .hero-cta:hover {
+      background: var(--white);
+      transform: translate(-3px, -3px);
+      box-shadow: 13px 13px 0 var(--red);
+    }
+
+    .hero-cta:active {
+      transform: translate(7px, 7px);
+      box-shadow: 3px 3px 0 var(--purple);
+    }
+
+    .hero-cta small {
+      display: block;
+      margin-top: 10px;
+      font-family: "Courier New", monospace;
+      font-size: 11px;
+      letter-spacing: .04em;
+    }
+
+    .ticker {
+      overflow: hidden;
+      border-block: 3px solid var(--black);
+      background: var(--acid);
+      color: var(--black);
+      font-family: "Courier New", monospace;
+      font-weight: 900;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .ticker-track {
+      display: inline-flex;
+      min-width: max-content;
+      animation: ticker 24s linear infinite;
+    }
+
+    .ticker span {
+      padding: 11px 20px;
+      font-size: 13px;
+    }
+
+    .ticker b { color: var(--red); }
+
+    @keyframes ticker {
+      to { transform: translateX(-50%); }
+    }
+
+    .section {
+      padding: 90px 20px;
+      background: var(--paper);
+      color: var(--ink);
+    }
+
+    .section-inner {
+      width: min(1120px, 100%);
+      margin: auto;
+    }
+
+    .section-kicker {
+      margin: 0 0 12px;
+      color: var(--purple);
+      font-family: "Courier New", monospace;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .section h2 {
+      max-width: 850px;
+      margin: 0 0 42px;
+      font-family: "Arial Black", Arial, Helvetica, sans-serif;
+      font-size: clamp(3rem, 7vw, 6rem);
+      line-height: .88;
+      letter-spacing: -.04em;
+      text-transform: uppercase;
+    }
+
+    .manifesto {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 24px;
+    }
+
+    .manifesto-main,
+    .manifesto-side {
+      border: 4px solid var(--ink);
+      box-shadow: var(--shadow);
+    }
+
+    .manifesto-main {
+      padding: clamp(24px, 5vw, 52px);
+      background: var(--white);
+    }
+
+    .manifesto-main p {
+      margin: 0;
+      font-size: clamp(1.3rem, 3vw, 2.1rem);
+      font-weight: 900;
+      line-height: 1.08;
+    }
+
+    .manifesto-main p + p {
+      margin-top: 25px;
+      color: var(--red);
+    }
+
+    .manifesto-side {
+      display: grid;
+      align-content: center;
+      gap: 0;
+      padding: 0;
+      background: var(--blue);
+      color: var(--white);
+    }
+
+    .fake-stat {
+      padding: 22px;
+      border-bottom: 3px solid rgba(255,255,255,.35);
+    }
+
+    .fake-stat:last-child { border-bottom: 0; }
+
+    .fake-stat strong {
+      display: block;
+      font-family: Impact, "Arial Black", sans-serif;
+      font-size: clamp(3rem, 6vw, 5rem);
+      line-height: .8;
+      color: var(--acid);
+    }
+
+    .fake-stat span {
+      display: block;
+      margin-top: 8px;
+      font-family: "Courier New", monospace;
+      font-size: 11px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .process {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 30px;
+    }
+
+    .step {
+      position: relative;
+      min-height: 220px;
+      padding: 24px;
+      border: 3px solid var(--ink);
+      background: #fff;
+      box-shadow: 5px 5px 0 var(--ink);
+    }
+
+    .step:nth-child(2) {
+      background: var(--acid);
+      transform: rotate(1deg);
+    }
+
+    .step:nth-child(3) {
+      background: var(--red);
+      color: var(--white);
+      transform: rotate(-1deg);
+    }
+
+    .step-num {
+      font-family: Impact, "Arial Black", sans-serif;
+      font-size: 4rem;
+      line-height: .8;
+    }
+
+    .step h3 {
+      margin: 24px 0 8px;
+      font-family: Impact, "Arial Black", sans-serif;
+      font-size: 2rem;
+      line-height: .9;
+      text-transform: uppercase;
+    }
+
+    .step p {
+      margin: 0;
+      font-size: .95rem;
+      font-weight: 700;
+    }
+
+    .generator {
+      position: relative;
+      padding: 100px 20px;
+      background:
+        linear-gradient(135deg, transparent 0 49%, rgba(216,255,0,.06) 50% 51%, transparent 52%),
+        var(--black);
+      color: var(--white);
+    }
+
+    .generator-inner {
+      width: min(1120px, 100%);
+      margin: auto;
+    }
+
+    .generator-box {
+      border: 5px solid var(--white);
+      background: var(--paper);
+      color: var(--ink);
+      box-shadow: 14px 14px 0 var(--acid);
+    }
+
+    .generator-head {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 25px;
+      padding: clamp(24px, 5vw, 48px);
+      border-bottom: 4px solid var(--ink);
+    }
+
+    .generator-head h2 {
+      margin: 0;
+      font-family: "Arial Black", Arial, Helvetica, sans-serif;
+      font-size: clamp(3rem, 7vw, 6rem);
+      line-height: .82;
+      text-transform: uppercase;
+    }
+
+    .stamp {
+      align-self: start;
+      padding: 12px;
+      border: 4px solid var(--red);
+      color: var(--red);
+      font-family: "Courier New", monospace;
+      font-weight: 900;
+      text-align: center;
+      transform: rotate(5deg);
+    }
+
+    .form {
+      padding: clamp(24px, 5vw, 48px);
+    }
+
+    .form label {
+      display: block;
+      margin-bottom: 9px;
+      font-family: "Courier New", monospace;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    .name-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+    }
+
+    #name-input {
+      min-width: 0;
+      width: 100%;
+      padding: 18px 16px;
+      border: 4px solid var(--ink);
+      border-radius: 0;
+      background: var(--white);
+      color: var(--ink);
+      font-size: 1.25rem;
+      font-weight: 800;
+    }
+
+    #name-input::placeholder { color: #999; }
+
+    #generate-btn {
+      padding: 16px 22px;
+      border: 4px solid var(--ink);
+      background: var(--red);
+      color: var(--white);
+      box-shadow: 5px 5px 0 var(--ink);
+      font-family: Impact, "Arial Black", sans-serif;
+      font-size: 1.7rem;
+      text-transform: uppercase;
+      transition: transform .12s ease, box-shadow .12s ease;
+    }
+
+    #generate-btn:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 7px 7px 0 var(--purple);
+    }
+
+    #generate-btn:active {
+      transform: translate(5px, 5px);
+      box-shadow: 0 0 0;
+    }
+
+    .fineprint {
+      margin: 13px 0 0;
+      color: #5f5b50;
+      font-family: "Courier New", monospace;
+      font-size: 11px;
+    }
+
+    .result {
+      display: none;
+      margin-top: 36px;
+      border-top: 4px dashed var(--ink);
+      padding-top: 36px;
+    }
+
+    .result.is-visible {
+      display: block;
+      animation: result-in .35s ease both;
+    }
+
+    @keyframes result-in {
+      from { opacity: 0; transform: translateY(12px) rotate(.5deg); }
+      to { opacity: 1; transform: translateY(0) rotate(0); }
+    }
+
+    .result-title {
+      margin: 0 0 16px;
+      font-family: Impact, "Arial Black", sans-serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      line-height: .9;
+      text-transform: uppercase;
+    }
+
+    .result-subtitle {
+      margin: 0 0 24px;
+      font-weight: 800;
+    }
+
+    #cert-image {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 5px solid var(--ink);
+      background: var(--white);
+      box-shadow: var(--shadow);
+    }
+
+    .actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 25px;
+    }
+
+    .action {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 58px;
+      padding: 14px 18px;
+      border: 4px solid var(--ink);
+      box-shadow: var(--shadow-small);
+      text-decoration: none;
+      font-family: Impact, "Arial Black", sans-serif;
+      font-size: 1.35rem;
+      text-align: center;
+      text-transform: uppercase;
+      transition: transform .12s ease, box-shadow .12s ease;
+    }
+
+    .action:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0 var(--ink);
+    }
+
+    .action:active {
+      transform: translate(4px, 4px);
+      box-shadow: 0 0 0;
+    }
+
+    .action.download { background: var(--acid); color: var(--ink); }
+    .action.share { background: var(--black); color: var(--white); }
+    .action.copy { background: var(--purple); color: var(--white); }
+    .action.new { background: var(--white); color: var(--ink); }
+
+    .share-note {
+      margin: 18px 0 0;
+      padding: 14px;
+      border: 3px dashed var(--red);
+      background: #fff6a8;
+      font-size: .9rem;
+      font-weight: 800;
+    }
+
+    .legal {
+      margin-top: 35px;
+      padding: 18px;
+      border: 3px solid var(--red);
+      background: #fff6a8;
+      color: var(--ink);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: .83rem;
+      font-weight: 700;
+    }
+
+    .legal strong {
+      color: var(--red);
+      text-transform: uppercase;
+    }
+
+    .footer {
+      padding: 35px 20px 60px;
+      background: var(--black);
+      color: #aaa;
+      text-align: center;
+      font-family: "Courier New", monospace;
+      font-size: 11px;
+    }
+
+    .footer strong { color: var(--acid); }
+
+    .toast {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 150;
+      max-width: min(360px, calc(100vw - 36px));
+      padding: 14px 16px;
+      border: 3px solid var(--white);
+      background: var(--black);
+      color: var(--acid);
+      box-shadow: 6px 6px 0 var(--red);
+      font-family: "Courier New", monospace;
+      font-size: 12px;
+      font-weight: 900;
+      transform: translateY(150%);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform .2s ease, opacity .2s ease;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @media (max-width: 760px) {
+      .topbar-status { display: none; }
+
+      .hero {
+        min-height: auto;
+        padding-top: 58px;
+      }
+
+      .hero h1 { font-size: clamp(3.8rem, 19vw, 7rem); }
+
+      .hero-copy,
+      .manifesto,
+      .process,
+      .generator-head {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-note {
+        max-width: none;
+        transform: none;
+      }
+
+      .process { gap: 20px; }
+
+      .step:nth-child(2),
+      .step:nth-child(3) {
+        transform: none;
+      }
+
+      .name-row,
+      .actions {
+        grid-template-columns: 1fr;
+      }
+
+      #generate-btn { width: 100%; }
+
+      .section,
+      .generator {
+        padding-top: 70px;
+        padding-bottom: 70px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
 </head>
+
 <body>
+  <a class="skip-link" href="#generator">Skip to certificate generator</a>
 
-    <div class="container">
-        <div class="marquee-container">
-            <marquee>⚠️ ALERT: ARTIFICIAL INTELLIGENCE IS OVER. YOU MUST PIVOT TO SUPER INTELLIGENCE (SI) IMMEDIATELY. ⚠️</marquee>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="NOMOREAI.SI home">NOMOREAI.SI</a>
+    <div class="topbar-status">
+      <span class="status-dot" aria-hidden="true"></span>
+      SYSTEM STATUS: AI DISCONTINUED
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-inner">
+        <div class="eyebrow">⚠️ Emergency career pivot notice / v1.0</div>
+
+        <h1 id="hero-title">
+          <span class="no-more">NO MORE <span class="ai-word">AI</span>.</span>
+          <span class="si">IT IS <span class="hero-word">SI.</span></span>
+        </h1>
+
+        <div class="hero-copy">
+          <p>
+            Artificial Intelligence was fine for a while.
+            <strong>Unfortunately, we have moved on.</strong>
+            Become a completely unofficial Super Intelligence Expert before your coworkers notice.
+          </p>
+
+          <div class="hero-note">
+            BREAKING:<br>
+            Someone on LinkedIn has already added “SI Strategy” to their bio.
+          </div>
         </div>
 
-        <h1>NOMOREAI.SI</h1>
-        <h2>Artificial is Dead. Super is Here.</h2>
-        <p style="color: black; font-weight: bold; font-size: 1.2rem;">Don't get caught calling it AI. Pivot your entire career right now with one click.</p>
-        
-        <button id="expert-btn">🚨 BECOME A CERTIFIED SI EXPERT 🚨</button>
+        <button class="hero-cta" id="hero-cta" type="button">
+          🚨 BECOME A CERTIFIED SI EXPERT 🚨
+          <small>one click • zero qualifications • absolutely no refunds</small>
+        </button>
+      </div>
+    </section>
 
-        <!-- Canvas for drawing the MS Paint certificate -->
-        <canvas id="cert-canvas" width="800" height="600"></canvas>
-
-        <div id="result-area">
-            <h3 style="color: black;">⬇️ YOUR CERTIFICATE IS READY. RIGHT CLICK TO SAVE OR DOWNLOAD. ⬇️</h3>
-            <img id="cert-image" src="" alt="SI Expert Certificate" />
-            
-            <div class="btn-group">
-                <a id="download-link" class="download-btn" href="#" download="SI_Expert_Certificate.png">💾 1. DOWNLOAD CERTIFICATE</a>
-                
-                <!-- The X Share Button -->
-                <a id="x-share-link" class="x-share-btn" href="https://twitter.com/intent/tweet?text=I%20have%20officially%20abandoned%20AI.%20I%20am%20now%20a%20Certified%20Super%20Intelligence%20(SI)%20Expert.%20%F0%9F%9A%A8%F0%9F%A7%A0%0A%0A(Don't%20forget%20to%20attach%20your%20certificate%20image!)%0A%0AGet%20yours%20at%3A%20nomoreai.si%0A%0A%23SuperIntelligence%20%23SI%20%23nomoreai" target="_blank">𝕏 2. SHARE ON X</a>
-            </div>
-            <p style="color: black; font-size: 1rem; font-weight: bold; margin-top: 10px;">(Clicking Share to X will write the viral tweet for you. Just attach your downloaded image!)</p>
-        </div>
-
-        <!-- The CYA (Cover Your Ass) Legal Warning -->
-        <div class="legal-warning">
-            🛑 NOTE / WARNING: Everything on this website is a joke. This "certificate" is a meme, is 100% fake, and has 0.00 legal, academic, or professional value. Do not use this to try and get a job. We do not store your name. Have fun!
-        </div>
+    <div class="ticker" aria-label="NOMOREAI.SI announcement">
+      <div class="ticker-track">
+        <span>⚠️ AI IS OLD NEWS <b>///</b> SI IS NOW <b>///</b> PIVOT IMMEDIATELY <b>///</b> PLEASE UPDATE YOUR LINKEDIN <b>///</b> AI IS OLD NEWS <b>///</b> SI IS NOW <b>///</b> PIVOT IMMEDIATELY <b>///</b> PLEASE UPDATE YOUR LINKEDIN <b>///</b></span>
+        <span aria-hidden="true">⚠️ AI IS OLD NEWS <b>///</b> SI IS NOW <b>///</b> PIVOT IMMEDIATELY <b>///</b> PLEASE UPDATE YOUR LINKEDIN <b>///</b> AI IS OLD NEWS <b>///</b> SI IS NOW <b>///</b> PIVOT IMMEDIATELY <b>///</b> PLEASE UPDATE YOUR LINKEDIN <b>///</b></span>
+      </div>
     </div>
 
-    <script>
-        document.getElementById('expert-btn').addEventListener('click', function() {
-            const name = prompt("What is your name, future Super Intelligence Expert?\n\n(Note: This is just a joke! The certificate is 100% fake and has 0 value)");
-            
-            if (!name) return; // Stop if they cancel or leave it blank
+    <section class="section" aria-labelledby="manifesto-title">
+      <div class="section-inner">
+        <p class="section-kicker">01 / THE OFFICIAL POSITION</p>
+        <h2 id="manifesto-title">The future has been rebranded.</h2>
 
-            const canvas = document.getElementById('cert-canvas');
-            const ctx = canvas.getContext('2d');
+        <div class="manifesto">
+          <article class="manifesto-main">
+            <p>
+              AI was merely the beta.
+              SI is the premium, enterprise-grade, board-approved,
+              completely made-up successor.
+            </p>
+            <p>
+              Do not ask what SI means. Asking questions is very AI-coded.
+            </p>
+          </article>
 
-            // 1. Draw MS Paint Style Background
-            ctx.fillStyle = "#FFFFFF";
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
+          <aside class="manifesto-side" aria-label="Completely fictional statistics">
+            <div class="fake-stat">
+              <strong>0%</strong>
+              <span>Accredited by anyone</span>
+            </div>
+            <div class="fake-stat">
+              <strong>100%</strong>
+              <span>Confidence required</span>
+            </div>
+            <div class="fake-stat">
+              <strong>∞</strong>
+              <span>Potential for LinkedIn nonsense</span>
+            </div>
+          </aside>
+        </div>
 
-            // 2. Draw messy MS Paint borders
-            ctx.lineWidth = 15;
-            ctx.strokeStyle = "#0000FF"; // Blue border
-            ctx.strokeRect(20, 20, 760, 560);
-            ctx.lineWidth = 5;
-            ctx.strokeStyle = "#FF0000"; // Red inner border
-            ctx.strokeRect(35, 35, 730, 530);
+        <div class="process" aria-label="How the certification works">
+          <article class="step">
+            <div class="step-num">01</div>
+            <h3>Reject AI</h3>
+            <p>Publicly announce that you have moved beyond the most popular technology term of the decade.</p>
+          </article>
 
-            // 3. Add Title (WordArt Style)
-            ctx.fillStyle = "#000000";
-            ctx.font = "bold 50px Impact";
-            ctx.textAlign = "center";
-            ctx.fillText("CERTIFICATE OF SUPER INTELLIGENCE", 400, 100);
-            
-            // Add shadow effect to title
-            ctx.fillStyle = "#FFFF00";
-            ctx.fillText("CERTIFICATE OF SUPER INTELLIGENCE", 403, 103);
+          <article class="step">
+            <div class="step-num">02</div>
+            <h3>Claim SI</h3>
+            <p>Do not study anything. Simply demonstrate unreasonable confidence and click the button.</p>
+          </article>
 
-            // 4. Add Body Text
-            ctx.fillStyle = "#000000";
-            ctx.font = "30px 'Comic Sans MS', sans-serif";
-            ctx.fillText("This highly official document certifies that:", 400, 200);
+          <article class="step">
+            <div class="step-num">03</div>
+            <h3>Post Proof</h3>
+            <p>Download your highly unofficial certificate and immediately put it on the internet.</p>
+          </article>
+        </div>
+      </div>
+    </section>
 
-            // 5. Draw the Name (Big, blue, MS Paint brush style)
-            ctx.font = "bold 60px 'Comic Sans MS', cursive";
-            ctx.fillStyle = "#0000FF";
-            ctx.fillText(name.toUpperCase(), 400, 280);
+    <section class="generator" id="generator" aria-labelledby="generator-title">
+      <div class="generator-inner">
+        <div class="generator-box">
+          <div class="generator-head">
+            <div>
+              <p class="section-kicker">02 / CERTIFICATION DEPARTMENT</p>
+              <h2 id="generator-title">Get certified.<br>Immediately.</h2>
+            </div>
+            <div class="stamp" aria-hidden="true">100%<br>FAKE<br>OFFICIAL*</div>
+          </div>
 
-            // 6. Draw the Date Line
-            const today = new Date().toLocaleDateString();
-            ctx.font = "30px 'Comic Sans MS', sans-serif";
-            ctx.fillStyle = "#000000";
-            ctx.fillText("Has officially abandoned AI and", 400, 360);
-            ctx.fillText("has been a certified SI Expert since:", 400, 410);
+          <div class="form">
+            <label for="name-input">Enter the name of the future SI expert</label>
 
-            // Draw actual date
-            ctx.font = "bold 45px 'Courier New', monospace";
-            ctx.fillStyle = "#FF0000";
-            ctx.fillText(today, 400, 470);
+            <div class="name-row">
+              <input
+                id="name-input"
+                name="name"
+                type="text"
+                maxlength="42"
+                autocomplete="name"
+                placeholder="e.g. Sam Altman"
+                aria-describedby="name-help"
+              >
+              <button id="generate-btn" type="button">Generate →</button>
+            </div>
 
-            // 7. Watermark / Promo Link
-            ctx.font = "bold 24px 'Courier New', monospace";
-            ctx.fillStyle = "#000000";
-            ctx.fillText("Get your own certificate at: NOMOREAI.SI", 400, 540);
-            
-            // Generate Image and show it
-            const dataUrl = canvas.toDataURL("image/png");
-            document.getElementById('cert-image').src = dataUrl;
-            document.getElementById('download-link').href = dataUrl;
-            
-            // Reveal result area
-            document.getElementById('result-area').style.display = "block";
+            <p class="fineprint" id="name-help">
+              Your name stays in your browser. We don't store it. This is a meme, not a qualification.
+            </p>
+
+            <div class="result" id="result-area" aria-live="polite" aria-atomic="true">
+              <h3 class="result-title">Congratulations. Your career has been pivoted.</h3>
+              <p class="result-subtitle" id="result-message">
+                Your completely unofficial certificate is ready for immediate misuse on the internet.
+              </p>
+
+              <canvas id="cert-canvas" width="1600" height="1200" class="sr-only" aria-hidden="true"></canvas>
+              <img id="cert-image" alt="Generated Certificate of Super Intelligence">
+
+              <div class="actions">
+                <a id="download-link" class="action download" href="#" download="SI_Expert_Certificate.png">
+                  💾 Download certificate
+                </a>
+                <a id="x-share-link" class="action share" href="#" target="_blank" rel="noopener noreferrer">
+                  𝕏 Share the evidence
+                </a>
+                <button id="copy-btn" class="action copy" type="button">
+                  ⧉ Copy bragging rights
+                </button>
+                <button id="new-btn" class="action new" type="button">
+                  ↻ Certify someone else
+                </button>
+              </div>
+
+              <div class="share-note">
+                PRO MOVE: Download the certificate, attach it to your post, tag one person who still says “AI,” and watch the discourse begin.
+              </div>
+            </div>
+
+            <div class="legal">
+              <strong>🛑 Extremely important legal-ish disclaimer:</strong>
+              This certificate is a joke. It is 100% fake and has zero legal, academic, employment, professional, spiritual, governmental, or intergalactic value. Do not submit it to a recruiter. Do not use it to operate heavy machinery. We do not store your name. Have fun.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <strong>NOMOREAI.SI</strong> — A completely unofficial institution for people who are tired of saying “AI.”
+    <br><br>
+    © 2026 The Department of Super Intelligence (which does not exist).
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    (() => {
+      const heroCta = document.getElementById("hero-cta");
+      const generator = document.getElementById("generator");
+      const input = document.getElementById("name-input");
+      const generateBtn = document.getElementById("generate-btn");
+      const resultArea = document.getElementById("result-area");
+      const resultMessage = document.getElementById("result-message");
+      const canvas = document.getElementById("cert-canvas");
+      const certImage = document.getElementById("cert-image");
+      const downloadLink = document.getElementById("download-link");
+      const xShareLink = document.getElementById("x-share-link");
+      const copyBtn = document.getElementById("copy-btn");
+      const newBtn = document.getElementById("new-btn");
+      const toast = document.getElementById("toast");
+
+      let currentName = "";
+
+      heroCta.addEventListener("click", () => {
+        generator.scrollIntoView({ behavior: "smooth", block: "center" });
+        window.setTimeout(() => input.focus(), 450);
+      });
+
+      function showToast(message) {
+        toast.textContent = message;
+        toast.classList.add("show");
+        window.clearTimeout(showToast.timer);
+        showToast.timer = window.setTimeout(() => {
+          toast.classList.remove("show");
+        }, 2600);
+      }
+
+      function fitText(ctx, text, maxWidth, startSize, fontFamily, weight = "bold") {
+        let size = startSize;
+        while (size > 24) {
+          ctx.font = `${weight} ${size}px ${fontFamily}`;
+          if (ctx.measureText(text).width <= maxWidth) return size;
+          size -= 2;
+        }
+        return size;
+      }
+
+      function drawCertificate(name) {
+        const ctx = canvas.getContext("2d");
+        const W = canvas.width;
+        const H = canvas.height;
+
+        ctx.clearRect(0, 0, W, H);
+
+        // Paper
+        ctx.fillStyle = "#fffdf2";
+        ctx.fillRect(0, 0, W, H);
+
+        // Subtle paper noise
+        for (let i = 0; i < 7000; i++) {
+          const x = Math.random() * W;
+          const y = Math.random() * H;
+          const alpha = Math.random() * .035;
+          ctx.fillStyle = `rgba(0,0,0,${alpha})`;
+          ctx.fillRect(x, y, 2, 2);
+        }
+
+        // Outer MS-Paint-ish borders
+        ctx.lineWidth = 28;
+        ctx.strokeStyle = "#173cff";
+        ctx.strokeRect(30, 30, W - 60, H - 60);
+
+        ctx.lineWidth = 9;
+        ctx.strokeStyle = "#ff2a1a";
+        ctx.strokeRect(58, 58, W - 116, H - 116);
+
+        // Corner marks
+        ctx.fillStyle = "#d8ff00";
+        [[75,75],[W-115,75],[75,H-115],[W-115,H-115]].forEach(([x,y]) => {
+          ctx.fillRect(x, y, 40, 40);
         });
-    </script>
+
+        // Header
+        ctx.textAlign = "center";
+        ctx.fillStyle = "#050505";
+        ctx.font = "bold 34px Courier New";
+        ctx.fillText("THE DEPARTMENT OF SUPER INTELLIGENCE", W / 2, 145);
+
+        ctx.font = "bold 78px Impact, Arial Black, sans-serif";
+        ctx.fillStyle = "#050505";
+        ctx.fillText("CERTIFICATE OF", W / 2, 250);
+
+        ctx.fillStyle = "#ff2a1a";
+        ctx.fillText("SUPER INTELLIGENCE", W / 2, 335);
+
+        // Divider
+        ctx.fillStyle = "#050505";
+        ctx.fillRect(210, 380, W - 420, 7);
+
+        // Body
+        ctx.fillStyle = "#050505";
+        ctx.font = "36px Comic Sans MS, Chalkboard SE, cursive";
+        ctx.fillText("This highly official document certifies that", W / 2, 455);
+
+        // Name
+        const safeName = name.toUpperCase();
+        const nameSize = fitText(ctx, safeName, W - 280, 88, "Comic Sans MS, Chalkboard SE, cursive");
+        ctx.font = `bold ${nameSize}px Comic Sans MS, Chalkboard SE, cursive`;
+        ctx.fillStyle = "#173cff";
+        ctx.fillText(safeName, W / 2, 570);
+
+        // Underline
+        ctx.strokeStyle = "#050505";
+        ctx.lineWidth = 4;
+        ctx.beginPath();
+        ctx.moveTo(210, 595);
+        ctx.lineTo(W - 210, 595);
+        ctx.stroke();
+
+        ctx.fillStyle = "#050505";
+        ctx.font = "34px Comic Sans MS, Chalkboard SE, cursive";
+        ctx.fillText("has officially abandoned AI and is now", W / 2, 680);
+
+        ctx.font = "bold 56px Impact, Arial Black, sans-serif";
+        ctx.fillStyle = "#7c3cff";
+        ctx.fillText("A CERTIFIED SI EXPERT", W / 2, 765);
+
+        // Fake credentials
+        ctx.fillStyle = "#050505";
+        ctx.font = "bold 24px Courier New";
+        ctx.fillText("ACCREDITATION LEVEL: UNREASONABLY CONFIDENT", W / 2, 835);
+
+        ctx.font = "24px Courier New";
+        const date = new Date().toLocaleDateString(undefined, {
+          year: "numeric", month: "long", day: "numeric"
+        });
+        ctx.fillText(`ISSUED: ${date}`, W / 2, 880);
+
+        // Fake signatures
+        ctx.textAlign = "left";
+        ctx.font = "bold 26px Comic Sans MS, cursive";
+        ctx.fillStyle = "#173cff";
+        ctx.fillText("Dr. Definitely Real", 190, 1000);
+        ctx.fillStyle = "#050505";
+        ctx.font = "18px Courier New";
+        ctx.fillText("Chief SI Officer*", 190, 1030);
+
+        ctx.textAlign = "right";
+        ctx.font = "bold 26px Comic Sans MS, cursive";
+        ctx.fillStyle = "#ff2a1a";
+        ctx.fillText("The Internet", W - 190, 1000);
+        ctx.fillStyle = "#050505";
+        ctx.font = "18px Courier New";
+        ctx.fillText("Independent Certification Board*", W - 190, 1030);
+
+        // Watermark / joke
+        ctx.textAlign = "center";
+        ctx.save();
+        ctx.translate(W / 2, H / 2 + 100);
+        ctx.rotate(-0.13);
+        ctx.globalAlpha = .08;
+        ctx.fillStyle = "#ff2a1a";
+        ctx.font = "bold 180px Impact, Arial Black, sans-serif";
+        ctx.fillText("FAKE", 0, 0);
+        ctx.restore();
+
+        ctx.globalAlpha = 1;
+        ctx.fillStyle = "#050505";
+        ctx.font = "bold 21px Courier New";
+        ctx.fillText("NOMOREAI.SI  •  THIS DOCUMENT IS A MEME  •  NOMOREAI.SI", W / 2, 1135);
+
+        return canvas.toDataURL("image/png");
+      }
+
+      function generate() {
+        const name = input.value.trim().replace(/\s+/g, " ");
+
+        if (!name) {
+          input.focus();
+          showToast("Please enter the name of the future SI expert.");
+          return;
+        }
+
+        currentName = name;
+        const dataUrl = drawCertificate(name);
+
+        certImage.src = dataUrl;
+        downloadLink.href = dataUrl;
+        downloadLink.download = `${name.replace(/[^a-z0-9]+/gi, "_")}_SI_Expert_Certificate.png`;
+
+        const shareText =
+          `I have officially abandoned AI. I am now a Certified Super Intelligence (SI) Expert. 🚨🧠\\n\\n` +
+          `My completely unofficial certificate says so.\\n\\n` +
+          `Get yours at https://nomoreai.si\\n\\n` +
+          `#SuperIntelligence #SI #nomoreai`;
+
+        xShareLink.href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`;
+
+        resultMessage.textContent =
+          `${name} has been officially certified by an institution that does not exist.`;
+
+        resultArea.classList.add("is-visible");
+        resultArea.scrollIntoView({ behavior: "smooth", block: "start" });
+
+        showToast("CERTIFICATION COMPLETE. Your career has been pivoted.");
+      }
+
+      generateBtn.addEventListener("click", generate);
+
+      input.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") generate();
+      });
+
+      copyBtn.addEventListener("click", async () => {
+        const text =
+          `I have officially abandoned AI. I am now a Certified Super Intelligence (SI) Expert. 🚨🧠\n\n` +
+          `Get your completely unofficial certificate at https://nomoreai.si\n\n` +
+          `#SuperIntelligence #SI #nomoreai`;
+
+        try {
+          await navigator.clipboard.writeText(text);
+          showToast("Bragging rights copied. Go post something irresponsible.");
+        } catch {
+          showToast("Clipboard blocked. Copy the text from the page manually.");
+        }
+      });
+
+      newBtn.addEventListener("click", () => {
+        resultArea.classList.remove("is-visible");
+        input.value = "";
+        input.focus();
+        generator.scrollIntoView({ behavior: "smooth", block: "center" });
+      });
+    })();
+  </script>
 </body>
 </html>
